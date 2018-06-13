@@ -19,6 +19,7 @@ class MessageForm extends Component {
       <form
         className="MessageForm"
         onSubmit={this.handleSubmit}
+        
       >
         <input
           type="text"
@@ -26,11 +27,32 @@ class MessageForm extends Component {
           placeholder="Type a message..."
           value={this.state.body}
           onChange={this.handleChange}
+          style = {styles.bar}
         />
-        <button type="submit">Send</button>
+        <button type="submit"
+        style = {styles.button}>
+        Send</button>
       </form>
     )
   }
 }
 
+const styles = {
+bar: {
+  position: 'absolute',
+  bottom: '10px',
+  height: '30px',
+  width: '50vh',
+},
+
+button: {
+  position: 'absolute',
+  bottom: '10px',
+  height: '35px',
+  right: '50vh',
+}
+
+ 
+
+}
 export default MessageForm
