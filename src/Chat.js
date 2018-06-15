@@ -4,23 +4,30 @@ import ChatHeader from './ChatHeader'
 import MessageList from './MessageList'
 import MessageForm from './MessageForm'
 
+import base from './base'
+
 class Chat extends Component {
   constructor() {
     super()
 
     this.state = {
-      messages: [
-        { id: 1, userName: 'dstrus', body: 'Chatting up a storm, yo!' },
-        { id: 2, userName: 'dpalazzo', body: 'This guy is so annoying. I hate my job.' },
-      ],
+      messages: [],
     }
+  }
+
+  componentWillMount() {
+    base.syncState('general/messages', {
+      context: this,
+      state: 'messages',
+      asArray: true,
+    })
   }
 
   addMessage = (body) => {
     const messages = [...this.state.messages]
     messages.push({
       id: Date.now(),
-      userName: this.props.user.userName,
+      user: this.props.user,
       body,
     })
 
@@ -29,13 +36,19 @@ class Chat extends Component {
 
   render() {
     return (
-      <div className="Chat">
+      <div className="Chat" style={styles}>
         <ChatHeader />
         <MessageList messages={this.state.messages} />
         <MessageForm addMessage={this.addMessage} />
       </div>
     )
   }
+}
+
+const styles = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
 }
 
 export default Chat
